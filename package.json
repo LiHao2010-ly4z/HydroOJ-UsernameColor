@@ -1,0 +1,17 @@
+{
+  "name": "hydrooj-username-color",
+  "version": "1.0.0",
+  "description": "HydroOJ plugin for custom username color",
+  "main": "index.js",
+  "author": "LiHao2010-ly4z",
+  "license": "AGPL-3.0",
+  "keywords": [
+    "hydrooj",
+    "plugin",
+    "username",
+    "color"
+  ],
+  "peerDependencies": {
+    "hydrooj": "*"
+  }
+}
