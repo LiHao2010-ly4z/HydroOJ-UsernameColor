@@ -19,23 +19,19 @@
     {% endif %}
   </a>
   {% else %}
-    {% if udoc.customNameColor %}
-      <span class="user-profile-name uname--lv{{ udoc.level|default(0) }}" style="color: {{ udoc.customNameColor }}">
-    {% endif %}
-    {% if udoc.realname_flag == 2 %}
-      <span class="icon icon-user"></span>
-    {% elif udoc.realname_flag == 1 %}
-      <span class="icon icon-star"></span>
-    {% endif %}
-    {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
-      {% set display_name = udoc.realname_name or udoc.displayName %}
-      {{ display_name + ' (' + udoc.uname + ')' if display_name and display_name != udoc.uname else udoc.uname }}
-    {% else %}
-      {{ udoc.uname }}
-    {% endif %}
-    {% if udoc.customNameColor %}
-      </span>
-    {% endif %}
+    <span class="user-profile-name uname--lv{{ udoc.level|default(0) }}" {% if udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
+      {% if udoc.realname_flag == 2 %}
+        <span class="icon icon-user"></span>
+      {% elif udoc.realname_flag == 1 %}
+        <span class="icon icon-star"></span>
+      {% endif %}
+      {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
+        {% set display_name = udoc.realname_name or udoc.displayName %}
+        {{ display_name + ' (' + udoc.uname + ')' if display_name and display_name != udoc.uname else udoc.uname }}
+      {% else %}
+        {{ udoc.uname }}
+      {% endif %}
+    </span>
   {% endif %}
   {% if badge %}
     {% if udoc.badge and udoc.badgeId %}
