@@ -8,7 +8,7 @@
   <a class="user-profile-name uname--lv{{ udoc.level|default(0) }}" href="{{ url('user_detail', uid=udoc._id) }}" {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) and udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
     {% if udoc.realname_flag == 2 %}
       <span class="icon icon-user"></span>
-    {% elif udoc.realname_flag == 1%}
+    {% elif udoc.realname_flag == 1 %}
       <span class="icon icon-star"></span>
     {% endif %}
     {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
@@ -22,7 +22,7 @@
     <span class="user-profile-name uname--lv{{ udoc.level|default(0) }}" {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) and udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
       {% if udoc.realname_flag == 2 %}
         <span class="icon icon-user"></span>
-      {% elif udoc.realname_flag == 1%}
+      {% elif udoc.realname_flag == 1 %}
         <span class="icon icon-star"></span>
       {% endif %}
       {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
@@ -36,7 +36,7 @@
   {% if badge %}
     {% if udoc.badge and udoc.badgeId %}
       {% set _badge = udoc.badge.split('#') %}
-      <a href="{{ url('badge_detail', id=udoc.badgeId) }}" class="user-profile-badge v-center" style="background-color:#{{ _badge[1] }}{% if _badge[2] %};color:#{{ _badge[2] }}{% endif %}" {%if _badge[3] %} data-tooltip="{{ _badge[3] }}" {% endif %}>{{ _badge[0] }}</a>
+      <a href="{{ url('badge_detail', id=udoc.badgeId) }}" class="user-profile-badge v-center" style="background-color:#{{ _badge[1] }}{% if _badge[2] %};color:#{{ _badge[2] }}{% endif %}" {% if _badge[3] %} data-tooltip="{{ _badge[3] }}" {% endif %}>{{ _badge[0] }}</a>
     {% elif udoc.badge %}
       {% set _badge = udoc.badge.split('#') %}
       <span class="user-profile-badge v-center" style="background-color:#{{ _badge[1] }}{% if _badge[2] %};color:#{{ _badge[2] }}{% endif %}">{{ _badge[0] }}</span>
