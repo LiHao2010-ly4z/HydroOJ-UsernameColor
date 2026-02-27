@@ -5,7 +5,7 @@
     <img class="small user-profile-avatar v-center" loading="lazy" src="{{ avatarUrl(udoc.avatar|default('')) }}" width="20" height="20">
   {% endif %}
   {% if inline %}
-  <a class="user-profile-name uname--lv{{ udoc.level|default(0) }}" href="{{ url('user_detail', uid=udoc._id) }}" {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) and udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
+  <a class="user-profile-name uname--lv{{ udoc.level|default(0) }}" href="{{ url('user_detail', uid=udoc._id) }}" {% if udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
     {% if udoc.realname_flag == 2 %}
       <span class="icon icon-user"></span>
     {% elif udoc.realname_flag == 1 %}
@@ -19,19 +19,23 @@
     {% endif %}
   </a>
   {% else %}
-    <span class="user-profile-name uname--lv{{ udoc.level|default(0) }}" {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) and udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
-      {% if udoc.realname_flag == 2 %}
-        <span class="icon icon-user"></span>
-      {% elif udoc.realname_flag == 1 %}
-        <span class="icon icon-star"></span>
-      {% endif %}
-      {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
-        {% set display_name = udoc.realname_name or udoc.displayName %}
-        {{ display_name + ' (' + udoc.uname + ')' if display_name and display_name != udoc.uname else udoc.uname }}
-      {% else %}
-        {{ udoc.uname }}
-      {% endif %}
-    </span>
+    {% if udoc.customNameColor %}
+      <span class="user-profile-name uname--lv{{ udoc.level|default(0) }}" style="color: {{ udoc.customNameColor }}">
+    {% endif %}
+    {% if udoc.realname_flag == 2 %}
+      <span class="icon icon-user"></span>
+    {% elif udoc.realname_flag == 1 %}
+      <span class="icon icon-star"></span>
+    {% endif %}
+    {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
+      {% set display_name = udoc.realname_name or udoc.displayName %}
+      {{ display_name + ' (' + udoc.uname + ')' if display_name and display_name != udoc.uname else udoc.uname }}
+    {% else %}
+      {{ udoc.uname }}
+    {% endif %}
+    {% if udoc.customNameColor %}
+      </span>
+    {% endif %}
   {% endif %}
   {% if badge %}
     {% if udoc.badge and udoc.badgeId %}
