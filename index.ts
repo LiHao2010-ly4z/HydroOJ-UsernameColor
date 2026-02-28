@@ -12,7 +12,7 @@ export function apply(ctx: Context) {
                 'text',
                 'customNameColor',
                 'customNameColor.desc',
-                SettingModel.FLAG_PRIVATE,
+                SettingModel.PERM_VIEW_USER_PRIVATE_INFO,
                 (val: string) => !val || HEX_COLOR_REGEX.test(val),
             ),
         );
