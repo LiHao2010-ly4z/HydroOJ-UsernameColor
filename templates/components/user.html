@@ -5,10 +5,10 @@
     <img class="small user-profile-avatar v-center" loading="lazy" src="{{ avatarUrl(udoc.avatar|default('')) }}" width="20" height="20">
   {% endif %}
   {% if inline %}
-  <a class="user-profile-name uname--lv{{ udoc.level|default(0) }}" href="{{ url('user_detail', uid=udoc._id) }}">
+  <a class="user-profile-name uname--lv{{ udoc.level|default(0) }}" href="{{ url('user_detail', uid=udoc._id) }}" {% if udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
     {% if udoc.realname_flag == 2 %}
       <span class="icon icon-user"></span>
-    {% elif udoc.realname_flag == 1%}
+    {% elif udoc.realname_flag == 1 %}
       <span class="icon icon-star"></span>
     {% endif %}
     {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
@@ -19,22 +19,27 @@
     {% endif %}
   </a>
   {% else %}
-    {% if udoc.realname_flag == 2 %}
-      <span class="icon icon-user"></span>
-    {% elif udoc.realname_flag == 1%}
-      <span class="icon icon-star"></span>
-    {% endif %}
-    {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
-      {% set display_name = udoc.realname_name or udoc.displayName %}
-      {{ display_name + ' (' + udoc.uname + ')' if display_name and display_name != udoc.uname else udoc.uname }}
-    {% else %}
-      {{ udoc.uname }}
-    {% endif %}
+    <span class="user-profile-name uname--lv{{ udoc.level|default(0) }}" {% if udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
+      {% if udoc.realname_flag == 2 %}
+        <span class="icon icon-user"></span>
+      {% elif udoc.realname_flag == 1 %}
+        <span class="icon icon-star"></span>
+      {% endif %}
+      {% if handler.user.hasPerm(perm.PERM_VIEW_USER_PRIVATE_INFO) %}
+        {% set display_name = udoc.realname_name or udoc.displayName %}
+        {{ display_name + ' (' + udoc.uname + ')' if display_name and display_name != udoc.uname else udoc.uname }}
+      {% else %}
+        {{ udoc.uname }}
+      {% endif %}
+    </span>
   {% endif %}
   {% if badge %}
     {% if udoc.badge and udoc.badgeId %}
       {% set _badge = udoc.badge.split('#') %}
-      <a href="{{ url('badge_detail', id=udoc.badgeId) }}" class="user-profile-badge v-center" style="background-color:#{{ _badge[1] }}{% if _badge[2] %};color:#{{ _badge[2] }}{% endif %}" {%if _badge[3] %} data-tooltip="{{ _badge[3] }}" {% endif %}>{{ _badge[0] }}</a>
+      <a href="{{ url('badge_detail', id=udoc.badgeId) }}" class="user-profile-badge v-center" style="background-color:#{{ _badge[1] }}{% if _badge[2] %};color:#{{ _badge[2] }}{% endif %}" {% if _badge[3] %} data-tooltip="{{ _badge[3] }}" {% endif %}>{{ _badge[0] }}</a>
+    {% elif udoc.badge %}
+      {% set _badge = udoc.badge.split('#') %}
+      <span class="user-profile-badge v-center" style="background-color:#{{ _badge[1] }}{% if _badge[2] %};color:#{{ _badge[2] }}{% endif %}">{{ _badge[0] }}</span>
     {% endif %}
     {% if levelbadge and udoc.level %}
       {% set level = udoc.level %}
