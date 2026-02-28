@@ -1,6 +1,6 @@
 {% macro render_inline(udoc, avatar=true, badge=true, modbadge=true, levelbadge=true, inline=true) %}
 {% if udoc %}
-<span class="user-profile-link" {% if udoc.customNameColor %}style="color: {{ udoc.customNameColor }}"{% endif %}>
+<span class="user-profile-link">
   {% if avatar %}
     <img class="small user-profile-avatar v-center" loading="lazy" src="{{ avatarUrl(udoc.avatar|default('')) }}" width="20" height="20">
   {% endif %}
