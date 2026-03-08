@@ -58,13 +58,8 @@
     {% endif %}
       <li class="nav__list-item" data-dropdown-pos="bottom right" data-dropdown-custom-class="nav__dropdown" data-dropdown-target="#menu-nav-user" data-dropdown-disabledconstrainToWindow data-dropdown-trigger-desktop-only>
         <a href="{{ url('user_detail', uid=handler.user._id) }}" class="nav__item">
-          {% if handler.user.hasPriv(PRIV.PRIV_MOD_BADGE) or handler.user.hasPerm(perm.PERM_MOD_BADGE) %}
             {{ user.render_inline(Object.assign(UserContext._dudoc, UserContext._udoc), 
               avatar=true, modbadge=true, badge=true, isModType=true, noLink=true) }}
-          {% else %}
-            {{ user.render_inline(Object.assign(UserContext._dudoc, UserContext._udoc), 
-              avatar=true, modbadge=true, badge=true, isModType=false, noLink=true) }}
-          {% endif %}
             <span class="icon icon-expand_more nojs--hide"></span></a>
         <ol class="dropdown-target menu" id="menu-nav-user">
           <li class="menu__item">
